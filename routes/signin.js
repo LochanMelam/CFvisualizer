@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userCollection = require("../models/user");
 var nodemailer = require("nodemailer");
-
+require("dotenv").config();
 //routes
 router.get("/", (req, res) => {
   if (req.session.user) {
@@ -18,11 +18,11 @@ router.post("/", async (req, res) => {
   // sends a verification mail to the user just in case if the user mail is not verified
   function sendVerificationMail(id) {
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587,
+      host: process.env.HOST,
+      port: process.env.EMAIL_PORT,
       auth: {
-        user: "cfvisualizer@gmail.com",
-        pass: "9848152269",
+        user: process.env.EMAIL,
+        pass: process.env.PASS,
       },
       tls: {
         rejectUnauthorized: false,

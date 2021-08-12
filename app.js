@@ -2,13 +2,11 @@ const express = require("express");
 const app = express();
 const session = require("express-session");
 const mongoose = require("mongoose");
-mongoose.connect(
-  "mongodb+srv://lochan_admin:cfvisualizer@cluster0.85c9n.mongodb.net/cfDb?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+require("dotenv").config();
+mongoose.connect(process.env.DATABASE_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 mongoose.connection
   .once("open", () => {
     console.log("connected to mongodb......");

@@ -1,0 +1,20 @@
+extends layout 
+block content
+    if (prompt)
+        h1  #{prompt}
+    div
+        form(action="/signup" method="POST")
+            input(name="name" type="text" placeholder="Enter your name" required)
+            br
+            input(name="email" type="text" placeholder="Enter your email" required)
+            br
+            input(name="password" type="password" placeholder="Enter your password" required)
+            br 
+            button(type="submit") Submit
+        a(href="/signin")
+            button Signin
+        br
+        if(alreadySignedUp)
+            form(action="/signin" ,method="GET")
+                button(type="submit") Signin 
+                        

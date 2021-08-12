@@ -1,0 +1,179 @@
+extends layout 
+block content
+    form(action="/stats",method="POST")
+        input(name="handle" type="text" placeholder="enter user handle" required)
+        button(type="submit") search 
+    a(href="/signout")
+        button Signout 
+    br
+    if(languageList)
+        table(border="1" class="container")
+            tr 
+                th stats table 
+            tr 
+                td Prolems Tried
+                td #{problemsTried}
+            tr 
+                td  Problems Solved 
+                td #{problemsSolved}
+            tr 
+                td  Contests
+                td #{contestsAttempted}
+            tr 
+                td  current rating
+                td #{currentRating}
+            tr 
+                td  max rating
+                td #{maxRating}
+            tr 
+                td min rating
+                td #{minRating}
+            tr 
+                td max up 
+                td #{maxUp}
+            tr 
+                td max down 
+                td #{maxDown}
+            tr 
+                td best rank
+                td #{bestRank}
+            tr 
+                td worst rank
+                td #{worstRank}
+            tr 
+                td average attempts
+                td #{averageAttempts}
+        div(class="row")
+            div( class="col-6" id="piechart-3d-language" style="width: 900px; height: 500px; ")
+            div( class="col-6" id="piechart-3d-verdict" style="width: 900px; height: 500px; ")
+        
+            div( class="col-12" id="piechart-3d-tag" style="width: 900px; height: 500px; ")
+        br
+        div(class="row")
+            div( class="col-12" id="columnchart_value1" style="width: 900px; height: 500px; ")
+        div(class="row")
+            div( class="col-12" id="columnchart_value2" style="width: 900px; height: 500px; ")
+        
+    
+    script.
+        google.charts.load('current',{'packages':['corechart']})
+        google.charts.setOnLoadCallback(drawChart)
+        function drawChart() {
+            var l = !{JSON.stringify(languageList)}
+            var d = Array(#{languageCount})
+            var chartData  =[["languages used","problems solved"]]
+
+            for (let i=0;i<d.length;i++)
+            {
+                chartData.push([l[i],d[i]])
+            }
+            var data = google.visualization.arrayToDataTable(chartData
+            );
+            var options = {
+            title: 'Languages Used',
+            is3D : true,
+            pieSliceText: 'label',
+            backgroundColor: {
+                fill:'ghostwhite'     
+        },
+            }
+            var chart = new google.visualization.PieChart(document.getElementById('piechart-3d-language'))
+            chart.draw(data , options)
+        }
+
+    script.
+        google.charts.load('current',{'packages':['corechart']})
+        google.charts.setOnLoadCallback(drawChart)
+        function drawChart() {
+            var v = !{JSON.stringify(verdictList)}
+            var d = Array(#{verdictCount})
+            var chartData  =[["verdict","result"]]
+            for (let i=0;i<d.length;i++)
+            {
+                chartData.push([v[i],d[i]])
+            }
+            var data = google.visualization.arrayToDataTable(chartData
+            );
+            var options = {
+            title: 'Verdict',
+            is3D : true,
+            pieSliceText: 'label',
+            backgroundColor: {
+                fill:'ghostwhite'     
+        },
+            }
+            var chart = new google.visualization.PieChart(document.getElementById('piechart-3d-verdict'))
+            chart.draw(data , options)
+        }
+    script.
+        google.charts.load('current',{'packages':['corechart']})
+        google.charts.setOnLoadCallback(drawChart)
+        function drawChart() {
+            var t = !{JSON.stringify(tagList)}
+            var d = Array(#{tagCount})
+            var chartData  =[["Tags","problems attempted in each tag"]]
+            for (let i=0;i<d.length;i++)
+            {
+                chartData.push([t[i],d[i]])
+            }
+            var data = google.visualization.arrayToDataTable(chartData
+            );
+            var options = {
+            title: 'Tags',
+            pieHole : 0.4,
+            pieSliceText: 'label',
+            backgroundColor: {
+                fill:'ghostwhite'     
+        },
+            }
+            var chart = new google.visualization.PieChart(document.getElementById('piechart-3d-tag'))
+            chart.draw(data , options)
+        }
+    
+    
+    script.
+        google.charts.load("current", {packages:['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        
+        
+        function drawChart() {
+            var index = !{JSON.stringify(indexList)}
+            var d = Array(#{indexCount})
+            var chartData  =[["Index","problems solved"]]
+            for (let i=0;i<d.length;i++)
+            {
+                chartData.push([index[i],d[i]])
+            }
+            var data = google.visualization.arrayToDataTable(chartData);
+
+
+            var options = {
+                legend: {position: 'top'},
+                title: "Index",
+                
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_value1"));
+            chart.draw(data, options);
+        }
+
+
+    script.
+        google.charts.load("current", {packages:['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var difficulty  = !{JSON.stringify(difficultyList)}
+            var d = Array(#{difficultyCount})
+            var chartData  =[["Difficulty","problems solved"]]
+            for (let i=0;i<d.length;i++)
+            {
+                chartData.push([difficulty[i],d[i]])
+            }
+            var data = google.visualization.arrayToDataTable(chartData);
+            var options = {
+                legend: {position: 'top'},
+                title: "difficulty",
+            }
+            var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_value2"));
+            chart.draw(data, options);
+        }

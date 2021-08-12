@@ -1,0 +1,19 @@
+extends layout 
+block content
+    form(action="/suggestion" method="POST") 
+        input(type="text" placeholder="handle" name ="handle" required)
+        button(type="submit") Compare
+    if (unsolvedProblems)
+        ul(class="list-inline")
+            each problem of unsolvedProblems
+                a(href = problem[0] target="_blank")
+                    li(class="list-inline-item")=problem[1]
+    if (suggestionProblems)
+        table(container="1")
+            tr 
+                th Try these problems #{handle}
+            each problem of suggestionProblems
+                tr
+                    td
+                        a(href=problem[0],target="_blank")=problem[1]
+    br 

@@ -1,0 +1,25 @@
+{
+  "name": "cfvisualizer",
+  "version": "1.0.0",
+  "description": "CFvisualizer using bootstarp , express js , mongodb",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "devStart": "npx nodemon app.js"
+  },
+  "author": "Lochan Melam",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "mongoose": "^5.13.3",
+    "nodemailer": "^6.6.3",
+    "otp-generator": "^2.0.1",
+    "pug": "^3.0.2",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}

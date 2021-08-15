@@ -50,7 +50,7 @@ router.post("/", async (req, res) => {
       if (user.length != 0) {
         // if not verified sends a verification mail
         if (!user[0].verified) {
-          sendVerificationMail(userExists[0]._id);
+          sendVerificationMail(user._id);
           // if verified allows the user to access account
         } else {
           req.session.user = true;

@@ -53,7 +53,7 @@ router.post("/", async (req, res) => {
           sendVerificationMail(userExists[0]._id);
           // if verified allows the user to access account
         } else {
-          req.session.user = user[0].username;
+          req.session.user = true;
           res.redirect("/stats");
         }
       }

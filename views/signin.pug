@@ -1,15 +1,22 @@
 extends layout
-
+block dropdown 
+    a(class="dropdown-item" href="/signup") Signup
 block content
-    div
+    div(class='container col-12 col-sm-4 shadow-lg p-3 mb-5 bg-white rounded' style='margin-top:50px')
         if (prompt)
             h2 invalid login details
         form(action="/signin" method="POST")
-            input(name="email" type="text" placeholder="Enter your email" required)
-            br
-            input(name="password" type="password" placeholder="Enter your password" required)
-            br 
-            button(type="submit") Signin
-        a(href="/signup")
-            button Signup
+            div(style="padding-left:50px;padding-right:50px")
+                h2(style="bold" class="text-center") Signin 
+                div(style="padding-top:50px")
+                    lable(for="email") Email
+                    input(class="form-control form-control-lg" name="email" id="email" type="text" placeholder="Enter your email" required)
+                br
+                lable(for="password") Password
+                input(class="form-control form-control-lg" name="password" id="password" type="password" placeholder="Enter your password" required)
+                br
+                div(class="text-center " )
+                    button(type="submit" class = "btn btn-danger") Submit
+                div(class="text-center" style="padding-top:25px;padding-bottom:75px")
+                    a(href="/signup" class="text-primary") Create new account
         

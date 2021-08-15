@@ -1,4 +1,6 @@
 extends layout 
+block dropdown 
+    a(class="dropdown-item" href="signout") Signout
 block content
     form(action="/suggestion" method="POST") 
         input(type="text" placeholder="handle" name ="handle" required)

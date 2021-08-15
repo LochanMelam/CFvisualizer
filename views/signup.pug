@@ -1,20 +1,26 @@
 extends layout 
+block dropdown 
+    a(class="dropdown-item" href="/signin") SignIn
 block content
-    if (prompt)
-        h1  #{prompt}
-    div
+    div(class='container col-12 col-sm-4 shadow-lg p-3 mb-5 bg-white rounded' style='margin-top:50px')
+        if (prompt)
+            h1  #{prompt}
         form(action="/signup" method="POST")
-            input(name="name" type="text" placeholder="Enter your name" required)
-            br
-            input(name="email" type="text" placeholder="Enter your email" required)
-            br
-            input(name="password" type="password" placeholder="Enter your password" required)
-            br 
-            button(type="submit") Submit
-        a(href="/signin")
-            button Signin
-        br
-        if(alreadySignedUp)
-            form(action="/signin" ,method="GET")
-                button(type="submit") Signin 
+            div(style="padding-left:50px;padding-right:50px")
+                h2(style="bold" class="text-center") Register
+                div(style="padding-top:50px")
+                    lable(for="username") User Name
+                    input(class="form-control form-control-lg"  name="username"  id="username"  type="text" placeholder="Enter your codeforces username" required)
+                br
+                lable(for="email") Email
+                input(class="form-control form-control-lg" name="email" id="email" type="text" placeholder="Enter your email" required)
+                br
+                lable(for="password") Password
+                input(class="form-control form-control-lg" name="password" id="password" type="password" placeholder="Enter your password" required)
+                br
+
+                div(class="text-center " )
+                    button(type="submit" class = "btn btn-danger") Submit
+                div(class="text-center" style="padding-top:25px;padding-bottom:75px")
+                    a(href="/signin" class="text-primary") Already have an account? Singin 
                         

@@ -81,7 +81,7 @@ router.post("/", validate, (req, res) => {
     if (error) console.log(error);
     try {
       if (body.status == "FAILED") {
-        errorCallback("line 85");
+        // errorCallback("line 85");
       } else {
         result = body.result;
         if (result.length != 0) {

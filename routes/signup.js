@@ -18,6 +18,7 @@ router.post("/", (req, res) => {
   var name = req.body.name;
   var email = req.body.email;
   var password = req.body.password;
+  var emailSent = false;
   //error callback
   function errorCallback(msg) {
     res.render("signup", {
@@ -35,7 +36,7 @@ router.post("/", (req, res) => {
     });
     user.save((error, response) => {
       if (error) console.log(error);
-      sendVerificationMail(response._id);
+      if (!emailSent) sendVerificationMail(response._id);
     });
   }
   // sends a verification mail to the user

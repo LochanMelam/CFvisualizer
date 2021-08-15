@@ -2,10 +2,12 @@ extends layout
 block dropdown 
     a(class="dropdown-item" href="signout") Signout
 block content
-    form(action="/compare" method="POST") 
-        input(type="text" placeholder="handle 1" name ="handle1" required)
-        input(type="text" placeholder="handle 2" name ="handle2" required)
-        button(type="submit") Compare 
+    div(class='container col-12 col-sm-4 shadow-lg p-3 mb-5 bg-white rounded text-center' style='margin-top:50px')
+        form(action="/compare" method="POST") 
+            input(type="text"  placeholder="handle 1" name ="handle1" required style="margin-top:25px;margin-right:10px")
+            input(type="text" placeholder="handle 2" name ="handle2" required style="margin-bottom:25px" )
+            br
+            button(type="submit" class = "btn btn-success") Compare 
     if(handle)
         table(border="1" class="container" style="margin-top:50px;margin-bottom:50px")
                 tr 
@@ -56,7 +58,6 @@ block content
                     td average attempts
                     td #{averageAttempts}
                     td #{AverageAttempts}
-
         div(class='container d-flex justify-content-center shadow p-3 mb-5 bg-white rounded' id="rating" style="width: 900px; height: 500px; ")
         div(class='container d-flex justify-content-center shadow p-3 mb-5 bg-white rounded' id="contest" style="width: 900px; height: 500px; ")
         div(class='container d-flex justify-content-center shadow p-3 mb-5 bg-white rounded'  id="index" style="width: 900px; height: 500px; ")
@@ -79,9 +80,7 @@ block content
                         td 
                             =val[2].rank
                 
-                         
-
-
+                        
         script.
             google.charts.load("current", {packages:['corechart']});
             google.charts.setOnLoadCallback(drawChart);

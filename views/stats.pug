@@ -2,11 +2,10 @@ extends layout
 block dropdown 
     a(class="dropdown-item" href="signout") Signout
 block content
-    form(action="/stats",method="POST")
-        input(name="handle" type="text" placeholder="enter user handle" required)
-        button(type="submit") search 
-    a(href="/signout")
-        button Signout 
+    div(class='container col-12 col-sm-4 shadow-lg p-3 mb-5 bg-white rounded text-center' style='margin-top:50px')
+        form(action="/stats",method="POST" )
+            input(name="handle" type="text" placeholder="enter user handle" required style="margin-top:25px;margin-bottom:25px;margin-right:10px")
+            button(type="submit" class = "btn btn-success") search 
     br
     if(problemsSolved)
         table(border="1" class="container")
@@ -45,16 +44,12 @@ block content
             tr 
                 td average attempts
                 td #{averageAttempts}
-        div(class="row")
-            div( class="col-6" id="piechart-3d-language" style="width: 900px; height: 500px; ")
-            div( class="col-6" id="piechart-3d-verdict" style="width: 900px; height: 500px; ")
-        
-            div( class="col-12" id="piechart-3d-tag" style="width: 900px; height: 500px; ")
         br
-        div(class="row")
-            div( class="col-12" id="columnchart_value1" style="width: 900px; height: 500px; ")
-        div(class="row")
-            div( class="col-12" id="columnchart_value2" style="width: 900px; height: 500px; ")
+        div( class='container d-flex justify-content-center shadow p-3 mb-5 bg-white rounded' id="piechart-3d-language" style="width: 900px; height: 500px; ")
+        div( class='container d-flex justify-content-center shadow p-3 mb-5 bg-white rounded' id="piechart-3d-verdict" style="width: 900px; height: 500px; ")
+        div( class='container d-flex justify-content-center shadow p-3 mb-5 bg-white rounded'  id="piechart-3d-tag" style="width: 900px; height: 500px; ")
+        div( class='container d-flex justify-content-center shadow p-3 mb-5 bg-white rounded'  id="columnchart_value1" style="width: 900px; height: 500px; ")
+        div( class='container d-flex justify-content-center shadow p-3 mb-5 bg-white rounded'  id="columnchart_value2" style="width: 900px; height: 500px; ")
     else if (problemsSolved==0)
         div(class='container d-flex justify-content-center shadow p-3 mb-5 bg-white rounded')
             h1 user haven't solved any problems

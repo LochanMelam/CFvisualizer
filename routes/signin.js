@@ -33,7 +33,9 @@ router.post("/", async (req, res) => {
       from: "cfvisualizer@gmail.com",
       to: `${email}`,
       subject: "Account Verification for CFvisualizer",
-      text: `http://${req.get("host")}/authorize/${id}`,
+      text: `click on the link verify your email http://${req.get(
+        "host"
+      )}/authorize/${id}`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -50,7 +52,7 @@ router.post("/", async (req, res) => {
       if (user.length != 0) {
         // if not verified sends a verification mail
         if (!user[0].verified) {
-          sendVerificationMail(user._id);
+          sendVerificationMail(user[0]._id);
           // if verified allows the user to access account
         } else {
           req.session.user = true;

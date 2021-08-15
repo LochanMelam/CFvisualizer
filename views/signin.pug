@@ -3,8 +3,6 @@ block dropdown
     a(class="dropdown-item" href="/signup") Signup
 block content
     div(class='container col-12 col-sm-4 shadow-lg p-3 mb-5 bg-white rounded' style='margin-top:50px')
-        if (prompt)
-            h2 invalid login details
         form(action="/signin" method="POST")
             div(style="padding-left:50px;padding-right:50px")
                 h2(style="bold" class="text-center") Signin 
@@ -15,8 +13,12 @@ block content
                 lable(for="password") Password
                 input(class="form-control form-control-lg" name="password" id="password" type="password" placeholder="Enter your password" required)
                 br
+                if (prompt)
+                    div(class = "alert alert-danger text-center" role = "alert") #{prompt}
+                    br
                 div(class="text-center " )
                     button(type="submit" class = "btn btn-danger") Submit
+                
                 div(class="text-center" style="padding-top:25px;padding-bottom:75px")
                     a(href="/signup" class="text-primary") Create new account
         

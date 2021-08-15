@@ -28,7 +28,7 @@ router.post("/", (req, res) => {
   //successfull callback
   function callback() {
     var user = new model({
-      username: username,
+      name: name,
       email: email,
       password: password,
       verified: false,
@@ -78,23 +78,9 @@ router.post("/", (req, res) => {
     try {
       // if user with email doesn't exists, creates a new user account and sends verification mail
       if (response.length == 0) {
-        request(
-          `https://codeforces.com/api/user.info?handles=${username}`,
-          { jason: true },
-          (error, response, body) => {
-            if (error) console.log(error);
-            try {
-              body = JSON.parse(body);
-              if (body.status == "FAILED") {
-                errorCallback("codeforces user doesn't exists");
-              } else {
-                callback();
-              }
-            } catch (err) {
-              errorCallback("currently codeforces is down :(");
-            }
-          }
-        );
+        {
+          callback();
+        }
       }
       // if email already used then prompts the client, "email in use"
       else {

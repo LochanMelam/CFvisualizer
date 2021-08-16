@@ -53,6 +53,7 @@ router.post("/", validate, (req, res) => {
   }
   function callback() {
     res.render("stats", {
+      handle: handle,
       languageList: languageList,
       languageCount: languageCount,
       verdictList: verdictList,

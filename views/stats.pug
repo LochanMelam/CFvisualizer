@@ -3,7 +3,7 @@ block dropdown
     a(class="dropdown-item" href="signout") Signout
 block content
     div(class='container col-12 col-sm-4 shadow-lg p-3 mb-5 bg-white rounded text-center' style='margin-top:50px')
-        form(action="/stats",method="POST" )
+        form(action="/stats",method="POST" ) 
             input(name="handle" type="text" placeholder="enter user handle" required style="margin-top:25px;margin-bottom:25px;margin-right:10px")
             button(type="submit" class = "btn btn-success") search 
     br
@@ -11,6 +11,7 @@ block content
         table(border="1" class="container")
             tr 
                 th stats table 
+                th #{handle}
             tr 
                 td Prolems Tried
                 td #{problemsTried}

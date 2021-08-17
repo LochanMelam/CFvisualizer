@@ -87,60 +87,64 @@ router.post("/", validate, (req, res) => {
           }
         }
       }
+      function1();
     } catch (error) {
       console.log("error : ", error);
     }
   });
-
-  request(
-    `https://codeforces.com/api/user.info?handles=${handle}`,
-    { json: true },
-    (error, response, body) => {
-      if (error) console.log(error);
-      try {
-        if (body.status == "FAILED") {
-          errorCallback();
-        } else {
-          var result = body.result;
-          userRating = result[0].rating || 800;
-        }
-      } catch (error) {
-        console.log("error : ", error);
-      }
-    }
-  );
-
-  request(
-    `https://codeforces.com/api/problemset.problems?tags=${tag1};${tag2}`,
-    { json: true },
-    (error, response, body) => {
-      if (error) console.log(error);
-      try {
-        if (body.status == "FAILED") {
-          errorCallback();
-        } else {
-          var result = body.result;
-          var problems = result.problems;
-          for (let obj of problems) {
-            if (
-              verdictMap.get(obj.name) != "OK" &&
-              Number(userRating) <= Number(obj.rating) &&
-              Number(obj.rating) <= Number(userRating) + 300
-            ) {
-              var problem =
-                "http://codeforces.com/problemset/problem/" +
-                String(obj.contestId) +
-                "/" +
-                String(obj.index);
-              suggestionProblems.push([problem, obj.name]);
-            }
-            if (suggestionProblems.length == 5) break;
+  function function1() {
+    request(
+      `https://codeforces.com/api/user.info?handles=${handle}`,
+      { json: true },
+      (error, response, body) => {
+        if (error) console.log(error);
+        try {
+          if (body.status == "FAILED") {
+            errorCallback();
+          } else {
+            var result = body.result;
+            userRating = result[0].rating || 800;
           }
+        } catch (error) {
+          console.log("error : ", error);
         }
-        callback();
-      } catch (error) {}
-    }
-  );
+      }
+    );
+
+    request(
+      `https://codeforces.com/api/problemset.problems?tags=${tag1};${tag2}`,
+      { json: true },
+      (error, response, body) => {
+        if (error) console.log(error);
+        try {
+          if (body.status == "FAILED") {
+            errorCallback();
+          } else {
+            var result = body.result;
+            var problems = result.problems;
+            for (let obj of problems) {
+              if (
+                verdictMap.get(obj.name) != "OK" &&
+                Number(userRating) <= Number(obj.rating) &&
+                Number(obj.rating) <= Number(userRating) + 300
+              ) {
+                var problem =
+                  "http://codeforces.com/problemset/problem/" +
+                  String(obj.contestId) +
+                  "/" +
+                  String(obj.index);
+                suggestionProblems.push([problem, obj.name]);
+              }
+              if (suggestionProblems.length == 5) break;
+            }
+          }
+          callback();
+        } catch (error) {
+          errorCallback();
+        }
+      }
+    );
+  }
 });
 
 module.exports = router;

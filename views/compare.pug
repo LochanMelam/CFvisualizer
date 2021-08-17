@@ -18,7 +18,7 @@ block content
                     br
             button(type="submit" class = "btn btn-success") Compare 
     if(problemsSolved && ProblemsSolved)
-        table(border="1" class="container" style="margin-top:50px;margin-bottom:50px")
+        table(border="1" class="container table table-hover" style="margin-top:50px;margin-bottom:50px")
                 tr 
                     th stats table 
                     th #{handle}
@@ -75,7 +75,7 @@ block content
         div(class='container d-flex justify-content-center shadow p-3 mb-5 bg-white rounded'  id="tag" style="width: 900px; height: 500px;" )
         br
         if(contestsAttempted && ContestsAttempted)
-            table(border="1" class="container" style="margin-bottom:50px")
+            table(border="1" class="container table table-hover" style="margin-bottom:50px")
                 tr 
                     th common contests and their ranks 
                     th #{handle}

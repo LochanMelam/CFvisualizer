@@ -21,6 +21,8 @@ const authorizeRouter = require("./routes/authorize");
 const statsRouter = require("./routes/stats");
 const compareRouter = require("./routes/compare");
 const suggestionRouter = require("./routes/suggestion");
+const forgotPasswordRouter = require("./routes/forgotPassword");
+const resetPasswordRouter = require("./routes/resetPassword");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -36,6 +38,8 @@ app.use("/authorize", authorizeRouter);
 app.use("/stats", statsRouter);
 app.use("/compare", compareRouter);
 app.use("/suggestion", suggestionRouter);
+app.use("/forgotPassword", forgotPasswordRouter);
+app.use("/resetPassword", resetPasswordRouter);
 
 app.get("*", (req, res) => {
   req.session.user ? res.redirect("/stats") : res.redirect("/signin");

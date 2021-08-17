@@ -8,13 +8,13 @@ block content
             button(type="submit" class = "btn btn-success") search 
     br
     if (unsolvedProblems)
-        table(border="1" class="container table table-hover text-center" style="margin-bottom:50px")
-            tr 
-                th Unsolved Problems
-            each problem of unsolvedProblems
+            table(border="1" class="container table table-hover text-center" style="margin-bottom:50px")
                 tr 
-                    td 
-                        a(href = problem[0] target="_blank")=problem[1]
+                    th Unsolved Problems
+                each problem of unsolvedProblems
+                    tr 
+                        td 
+                            a(href = problem[0] target="_blank")=problem[1]
     
     if (suggestionProblems)
         div(class='container d-flex justify-content-center shadow p-3 mb-5 bg-white rounded')

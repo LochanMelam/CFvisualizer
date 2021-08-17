@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const model = require("../models/user");
-
+const { render } = require("pug");
 router.get("/:id", (req, res) => {
   model.find({ _id: req.params.id }, (error, response) => {
     if (error) console.log("error");

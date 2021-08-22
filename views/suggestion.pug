@@ -18,7 +18,7 @@ block content
                         td 
                             a(href = problem[0] target="_blank")=problem[1]
     
-    if (suggestionProblems.length!=0)
+    if (suggestionProblems && suggestionProblems.length!=0)
         div(class='container d-flex justify-content-center shadow p-3 mb-5 bg-white rounded')
             table(container="1")
                 tr 

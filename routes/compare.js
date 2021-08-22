@@ -331,9 +331,11 @@ router.post("/", validate, (req, res) => {
                 );
             }
           }
-          for (let [key, value] of difficultyMap.entries()) {
-            difficultyList.push(key);
-            difficultyCount.push(value);
+          for (let i = 800; i <= 4000; i += 100) {
+            if (difficultyMap.has(i)) {
+              difficultyList.push(i);
+              difficultyCount.push(difficultyMap.get(i));
+            }
           }
           // table data
           var statsMap = new Map();
@@ -454,7 +456,7 @@ router.post("/", validate, (req, res) => {
                 );
             }
           }
-          for (let i = 800; i <= 4000; i++) {
+          for (let i = 800; i <= 4000; i += 100) {
             if (difficultyMap.has(i)) {
               DifficultyList.push(i);
               DifficultyCount.push(difficultyMap.get(i));

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const model = require("../models/user");
 const nodemailer = require("nodemailer");
+const { render } = require("pug");
 router.get("/", (req, res) => {
   res.render("forgotPassword");
 });

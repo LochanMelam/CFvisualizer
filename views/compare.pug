@@ -67,29 +67,30 @@ block content
                     td average attempts
                     td #{averageAttempts}
                     td #{AverageAttempts}
-        if(contestsAttempted!=0 && contestsAttempted!=0)
+    if(contestsAttempted && contestsAttempted)
+        div
             div(class='container d-flex justify-content-center shadow p-3 mb-5 bg-white rounded' id="rating" style="width: 900px; height: 500px; ")
             div(class='container d-flex justify-content-center shadow p-3 mb-5 bg-white rounded' id="contest" style="width: 900px; height: 500px; ")
-        div(class='container d-flex justify-content-center shadow p-3 mb-5 bg-white rounded'  id="index" style="width: 900px; height: 500px; ")
-        div(class='container d-flex justify-content-center shadow p-3 mb-5 bg-white rounded'  id="difficulty" style="width: 900px; height: 500px; ")
-        div(class='container-fluid d-flex justify-content-center shadow p-3 mb-5 bg-white rounded'  id="tag" style="width: 900px; height: 500px;" )
-        br
-        if(contestsAttempted && ContestsAttempted)
-            table(border="1" class="container table table-hover" style="margin-bottom:50px")
-                tr 
-                    th common contests and their ranks 
-                    th #{handle}
-                    th #{Handle}
-                each val,key in compare 
-                    if (val.length === 3)
-                        tr 
-                            td 
-                                a(href="http://codeforces.com/contest/"+key target="_blank")
-                                    = val[1].contestName 
-                            td 
-                                =val[1].rank 
-                            td 
-                                =val[2].rank
+            div(class='container-fluid d-flex justify-content-center shadow p-3 mb-5 bg-white rounded'  id="difficulty" style="width: 2000px; height: 720px; ")
+            div(class='container-fluid d-flex justify-content-center shadow p-3 mb-5 bg-white rounded'  id="index" style="width: 2000px; height: 720px; ")
+            div(class='container-fluid d-flex justify-content-center shadow p-3 mb-5 bg-white rounded' id="tag" style="width:3000px; height:720px;" )
+    br
+    if(contestsAttempted && ContestsAttempted)
+        table(border="1" class="container table table-hover" style="margin-bottom:50px")
+            tr 
+                th common contests and their ranks 
+                th #{handle}
+                th #{Handle}
+            each val,key in compare 
+                if (val.length === 3)
+                    tr 
+                        td 
+                            a(href="http://codeforces.com/contest/"+key target="_blank")
+                                = val[1].contestName 
+                        td 
+                            =val[1].rank 
+                        td 
+                            =val[2].rank
                 
                         
         script.
@@ -171,6 +172,8 @@ block content
                 var d1 = !{JSON.stringify(difficultyCount)}
                 var difficulty2 = !{JSON.stringify(DifficultyList)}
                 var d2 = !{JSON.stringify(DifficultyCount)}
+                console.log(difficulty1)
+                console.log(difficulty2) 
                 var chartData  =[["Difficulty",!{JSON.stringify(handle)},!{JSON.stringify(Handle)}]]
                 var difficulty ,ps1,ps2;
                 for (let i=0;i<Math.max(d1.length,d2.length);i++)

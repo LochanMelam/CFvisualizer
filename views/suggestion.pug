@@ -5,7 +5,9 @@ block content
     div(class='container col-12 col-sm-4 shadow-lg p-3 mb-5 bg-white rounded text-center' style='margin-top:50px')
         form(action="/suggestion",method="POST" ) 
             input(name="handle" type="text" placeholder="enter user handle" required style="margin-top:25px;margin-bottom:25px;margin-right:10px")
-            button(type="submit" class = "btn btn-success") search 
+            button(type="submit" class = "btn btn-success") get problems
+            if (prompt)
+                div(class="alert alert-danger" role="alert") #{prompt}
     br
     if (unsolvedProblems)
             table(border="1" class="container table table-hover text-center" style="margin-bottom:50px")
@@ -16,7 +18,7 @@ block content
                         td 
                             a(href = problem[0] target="_blank")=problem[1]
     
-    if (suggestionProblems)
+    if (suggestionProblems.length!=0)
         div(class='container d-flex justify-content-center shadow p-3 mb-5 bg-white rounded')
             table(container="1")
                 tr 

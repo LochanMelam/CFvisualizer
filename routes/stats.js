@@ -48,7 +48,7 @@ router.post("/", validate, (req, res) => {
   var url3 = `https://codeforces.com/api/user.rating?handle=${handle}`;
 
   function errorCallback(line) {
-    res.redirect("/stats");
+    res.render("stats", { prompt: "cf User doesn't exists/cf is down :(" });
     console.log(line);
   }
   function callback() {

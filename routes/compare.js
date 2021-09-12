@@ -3,7 +3,7 @@ const { render } = require("pug");
 const request = require("request");
 const router = express.Router();
 
-// validate function
+// validate function(the post route will only be accessable only if the user is logged in)
 function validate(req, res, next) {
   if (!req.session.user) {
     console.log("not validated");
@@ -18,6 +18,7 @@ router.get("/", validate, (req, res) => {
 });
 
 router.post("/", validate, (req, res) => {
+  //below variables hold the data based on cf User name
   var languageList = [],
     LanguageList = [],
     languageCount = [],
@@ -65,19 +66,20 @@ router.post("/", validate, (req, res) => {
     worstRank = 0,
     WorstRank = 0;
   var compare = {};
-  var handle = req.body.handle1;
-  var Handle = req.body.handle2;
-  var url1 = `https://codeforces.com/api/user.status?handle=${handle}`;
-  var url2 = `https://codeforces.com/api/user.rating?handle=${handle}`;
-  var url3 = `https://codeforces.com/api/user.status?handle=${Handle}`;
-  var url4 = `https://codeforces.com/api/user.rating?handle=${Handle}`;
+  var handle = req.body.handle1; // handle of user 1
+  var Handle = req.body.handle2; // handle of user 2
+  // url's that will fetch the required data from Codeforces Api
+  var url1 = `https://codeforces.com/api/user.status?handle=${handle}`; // url to get the data(problems attempted including contests) of handle 1
+  var url2 = `https://codeforces.com/api/user.rating?handle=${handle}`; // url to get the data(only contests) of handle 1
+  var url3 = `https://codeforces.com/api/user.status?handle=${Handle}`; // url to get the data(problems attempted including contests) of handle 2
+  var url4 = `https://codeforces.com/api/user.rating?handle=${Handle}`; // url to get the data(only contests) of handle 2
 
-  //error callback
+  //error callback => will take care if there is any error while getting data from cf api
   function errorCallback(line) {
     res.redirect("/compare");
     console.log(line);
   }
-  // successfull callback
+  // successfull callback => if all the cf api calls are successfull then they will be passed to the render page
   function callback() {
     res.render("compare", {
       compare: compare,
@@ -127,7 +129,11 @@ router.post("/", validate, (req, res) => {
       AverageAttempts: AverageAttempts,
     });
   }
+  // four functions(function1,2,3,4) => each function will fetch data based on the url. example * function1 => url 1 , function2 => url 2 likewise
+  // As node js is asynchronous and cf api takes 2-4 sec latency to fetch data each function call is called at the end of the execution of its previous function
+  // function2 call will be inside function1 block => function3 call will be inside function2 block => function4 call will be inside function3 block
 
+  // executes url 1
   function function1() {
     request(url2, { json: true }, (error, response, body) => {
       console.log("url 1");
@@ -174,7 +180,7 @@ router.post("/", validate, (req, res) => {
             maxDown = Math.abs(maxDown);
           }
         }
-        function2();
+        function2(); // function call to fetch data(url2) from cf api
       } catch (error) {
         console.log("error : ", error);
         errorCallback("line 177");
@@ -182,6 +188,7 @@ router.post("/", validate, (req, res) => {
     });
   }
 
+  // executes url 2
   function function2() {
     request(url4, { json: true }, (error, response, body) => {
       console.log("url2");
@@ -230,7 +237,7 @@ router.post("/", validate, (req, res) => {
             MaxDown = Math.abs(maxDown);
           }
         }
-        function3();
+        function3(); // function call to fetch data(url3) from cf api
       } catch (error) {
         console.log("error : ", error);
         errorCallback("line 225");
@@ -238,6 +245,7 @@ router.post("/", validate, (req, res) => {
     });
   }
 
+  // executes url 3
   function function3() {
     request(url1, { json: true }, (error, response, body) => {
       console.log("url3");
@@ -357,12 +365,14 @@ router.post("/", validate, (req, res) => {
           }
           averageAttempts = (result.length / problemsSolved).toPrecision(3);
         }
-        function4();
+        function4(); // function call to fetch data(url4) from cf api
       } catch (error) {
         errorCallback("line 353");
       }
     });
   }
+
+  // executes url 4
   function function4(params) {
     request(url3, { json: true }, (error, response, body) => {
       console.log("url4");
@@ -489,7 +499,7 @@ router.post("/", validate, (req, res) => {
       }
     });
   }
-  function1();
+  function1(); // function call to fetch data(url1) from cf api
 });
 
 module.exports = router;

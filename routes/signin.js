@@ -55,6 +55,7 @@ router.post("/", async (req, res) => {
           sendVerificationMail(user[0]._id);
           // if verified allows the user to access account
         } else {
+          req.session.cookie.maxAge = 24 * 3600000; // 1 day
           req.session.user = true;
           res.redirect("/stats");
         }
